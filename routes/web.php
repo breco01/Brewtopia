@@ -3,6 +3,31 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/reviews', function () {
+    return view('reviews.index');
+})->name('reviews.index');
+
+Route::get('/beers/create', function () {
+    return view('beers.create');
+})->name('beers.create');
+
+Route::get('/beers/list', function () {
+    return view('beers.list'); 
+})->name('beers.list');
+
+Route::get('/beers/top', function () {
+    return view('beers.top');
+})->name('beers.top');
+
+Route::get('/community', function () {
+    return view('community.index');
+})->name('community.index');
+
+Route::get('/settings', function () {
+    return view('settings');
+})->name('settings');
+
+// Bestaande routes
 Route::get('/', function () {
     return view('welcome');
 });
