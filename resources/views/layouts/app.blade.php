@@ -26,18 +26,24 @@
 
                         <!-- Dropdown voor profiel -->
                         <div class="relative">
-                            <button id="profileDropdownButton" class="flex items-center text-white hover:text-yellow-100 transition-colors">
+                        <button id="profileDropdownButton" class="flex items-center text-white hover:text-yellow-100 transition-colors">
+                            @if (Auth::user()->profile_photo_path)
+                                <!-- Als de profielfoto bestaat, toon deze -->
+                                <img src="{{ Storage::url(Auth::user()->profile_photo_path) }}" alt="Profielfoto" class="w-8 h-8 rounded-full mr-2">
+                            @else
+                                <!-- Anders toon de Gravatar afbeelding -->
                                 <img src="https://www.gravatar.com/avatar/{{ md5(strtolower(Auth::user()->email)) }}" alt="Profielfoto" class="w-8 h-8 rounded-full mr-2">
-                                {{ Auth::user()->name }}
-                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </button>
-                            <!-- Dropdown Menu -->
-                            <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10 hidden">
-                                <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profiel bewerken</a>
-                                <a href="{{ route('settings') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Instellingen</a>
-                                <a href="{{ route('logout') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Uitloggen</a>
-                            </div>
+                            @endif
+                            {{ Auth::user()->name }}
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <!-- Dropdown Menu -->
+                        <div id="profileDropdown" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10 hidden">
+                            <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profiel bewerken</a>
+                            <a href="{{ route('settings') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Instellingen</a>
+                            <a href="{{ route('logout') }}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Uitloggen</a>
                         </div>
+                    </div>
                     </div>
                 </nav>
             </header>
