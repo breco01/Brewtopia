@@ -22,26 +22,44 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(Request $request)
     {
-        $request->authenticate();
+        $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
 
-        $request->session()->regenerate();
+        // Probeer de gebruiker in te loggen
+        if (
+            Auth::attempt([
+                'email' => $request->email,
+                'password' => $request->password,
+            ], $request->remember)
+        ) {
+            $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+            // Check of de gebruiker een admin is
+            if (Auth::user()->is_admin) {
+                return redirect()->route('admin.dashboard'); // Als admin, stuur door naar admin-dashboard
+            }
+
+            // Anders, doorverwijzen naar de normale dashboard
+            return redirect()->route('dashboard');
+        }
+
+        // Foutmelding als inloggen niet lukt
+        return back()->withErrors([
+            'email' => __('De opgegeven gegevens komen niet overeen met onze records.'),
+        ]);
     }
 
-    /**
-     * Destroy an authenticated session.
-     */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(Request $request)
     {
-        Auth::guard('web')->logout();
+        Auth::logout(); // Log out de gebruiker
+        $request->session()->invalidate(); // Vernietig de sessie
+        $request->session()->regenerateToken(); // Genereer een nieuwe CSRF-token voor beveiliging
 
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect('/');
+        return redirect('/'); // Redirect naar de homepage of loginpagina
     }
+
 }
