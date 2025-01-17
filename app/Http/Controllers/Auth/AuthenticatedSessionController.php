@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException; // Toegevoegde import
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -23,43 +24,48 @@ class AuthenticatedSessionController extends Controller
      * Handle an incoming authentication request.
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
+{
+    Log::info('Store functie aangeroepen voor inloggen.');
+
+    $request->validate([
+        'email' => ['required', 'email'],
+        'password' => ['required'],
+    ]);
+
+    if (Auth::attempt([
+        'email' => $request->email,
+        'password' => $request->password,
+    ], $request->remember)) {
+        $request->session()->regenerate();
+
+        Log::info('Ingelogd als gebruiker', [
+            'user_id' => Auth::user()->id,
+            'user_email' => Auth::user()->email,
         ]);
 
-        // Probeer de gebruiker in te loggen
-        if (
-            Auth::attempt([
-                'email' => $request->email,
-                'password' => $request->password,
-            ], $request->remember)
-        ) {
-            $request->session()->regenerate();
-
-            // Check of de gebruiker een admin is
-            if (Auth::user()->is_admin) {
-                return redirect()->route('admin.dashboard'); // Als admin, stuur door naar admin-dashboard
-            }
-
-            // Anders, doorverwijzen naar de normale dashboard
-            return redirect()->route('dashboard');
+        if (Auth::user()->is_admin) {
+            Log::info('Admin gebruiker ingelogd, doorverwijzen naar admin-dashboard');
+            return redirect()->route('admin.dashboard');
         }
 
-        // Foutmelding als inloggen niet lukt
-        return back()->withErrors([
-            'email' => __('De opgegeven gegevens komen niet overeen met onze records.'),
-        ]);
+        return redirect()->route('dashboard');
     }
 
+    throw ValidationException::withMessages([
+        'email' => __('De opgegeven gegevens komen niet overeen met onze records.'),
+    ]);
+}
+
+    /**
+     * Destroy an authenticated session.
+     */
     public function destroy(Request $request)
     {
-        Auth::logout(); // Log out de gebruiker
-        $request->session()->invalidate(); // Vernietig de sessie
-        $request->session()->regenerateToken(); // Genereer een nieuwe CSRF-token voor beveiliging
+        Auth::guard('web')->logout();
 
-        return redirect('/'); // Redirect naar de homepage of loginpagina
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
-
 }
