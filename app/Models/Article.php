@@ -13,4 +13,10 @@ class Article extends Model
 
     protected $dates = ['published_at'];
 
+    // In je Article model
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
+
+
 }

@@ -80,8 +80,8 @@
                             <h3 class="text-2xl font-semibold text-gray-800 mb-4">{{ $article->title }}</h3>
                             <img src="{{ Storage::url($article->image_path) }}" alt="Article Image"
                                 class="w-full h-60 object-cover mb-4">
-                            <p class="text-gray-600">{{ Str::limit($article->content, 150) }}</p>
-                            <p class="text-gray-400 text-sm mt-4">Gepubliceerd op
+                                <p class="text-gray-600">{{ $article->content }}</p>
+                                <p class="text-gray-400 text-sm mt-4">Gepubliceerd op
                                 {{ \Carbon\Carbon::parse($article->published_at)->format('d M Y') }}
                             </p>
 

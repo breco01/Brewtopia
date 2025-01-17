@@ -70,7 +70,7 @@
                     <div class="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between h-full">
                         <h2 class="text-xl font-bold text-gray-800 mb-4">Overzicht van Gebruikers</h2>
                         <p class="text-gray-600 mb-4">Bekijk het aantal geregistreerde gebruikers en hun status.</p>
-                        
+
                         <div>
                             <p class="text-lg text-gray-800 font-semibold">Aantal Gebruikers:</p>
                             <p class="text-2xl font-bold text-yellow-600">{{ \App\Models\User::count() }}</p>
@@ -150,6 +150,45 @@
                         <a href="{{ route('articles.create') }}"
                             class="text-yellow-600 hover:text-yellow-700 font-medium">Voeg Nieuwsartikel toe &rarr;</a>
                     </div>
+
+                    <!-- Nieuwsartikelen Beheren -->
+                    <div class="bg-white shadow-lg rounded-lg p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">Nieuwsartikelen Beheren</h2>
+                        <p class="text-gray-600 mb-4">Bekijk, bewerk en verwijder nieuwsartikelen.</p>
+
+                        <!-- Lijst van nieuwsartikelen -->
+                        <ul class="space-y-2">
+                            @foreach (\App\Models\Article::latest()->take(3)->get() as $article)
+                                <li class="flex justify-between items-center text-gray-700">
+                                    <div>
+                                        <p class="font-semibold">{{ $article->title }}</p>
+                                        <p class="text-sm text-gray-400">{{ $article->published_at->format('d M Y') }}</p>
+                                        </div>
+
+                                    <!-- Bewerken en Verwijderen Knoppen -->
+                                    <div class="space-x-2">
+                                        <a href="{{ route('articles.edit', $article->id) }}"
+                                            class="text-yellow-600 hover:text-yellow-700 font-medium">Bewerken</a>
+
+                                        <form action="{{ route('articles.destroy', $article->id) }}" method="POST"
+                                            style="display: inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="text-red-600 hover:text-red-700 font-medium">Verwijderen</button>
+                                        </form>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+
+                        <!-- Bekijk Meer Knop -->
+                        <div class="mt-6 text-center">
+                            <a href="{{ route('articles.index') }}"
+                                class="text-yellow-600 hover:text-yellow-700 font-medium">Bekijk Meer &rarr;</a>
+                        </div>
+                    </div>
+
 
                     <!-- Nieuw Bier Toevoegen -->
                     <div class="bg-white shadow-lg rounded-lg p-6">

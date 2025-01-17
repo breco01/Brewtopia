@@ -46,6 +46,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Routes voor nieuwsartikelen
     Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
     Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
+
+    // Bewerken en verwijderen van artikelen
+    Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
+    Route::put('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
+    Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
 });
 
 // Artikelen overzicht voor iedereen
