@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\FAQController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Article;
@@ -51,7 +52,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
     Route::put('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
     Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+
+    // Beheer FAQ's overzicht
+    Route::get('/admin/faqs', [FAQController::class, 'adminIndex'])->name('faqs.admin.index');
+    // Bewerken en verwijderen van FAQ's
+    Route::get('/faqs/{id}/edit', [FAQController::class, 'edit'])->name('faqs.edit');
+    Route::put('/faqs/{id}', [FAQController::class, 'update'])->name('faqs.update');
+    Route::delete('/faqs/{id}', [FAQController::class, 'destroy'])->name('faqs.destroy');
 });
+
+// Routes voor FAQ's (zonder authenticatie vereist)
+Route::get('/faqs', [FAQController::class, 'index'])->name('faqs.index');
+Route::get('/faqs/create', [FAQController::class, 'create'])->name('faqs.create');
+Route::post('/faqs', [FAQController::class, 'store'])->name('faqs.store');
 
 // Artikelen overzicht voor iedereen
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');

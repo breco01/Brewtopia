@@ -10,10 +10,14 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::table('articles', function (Blueprint $table) {
-            $table->timestamp('published_at')->nullable();
+        Schema::create('f_a_q_s', function (Blueprint $table) {
+            $table->id();
+            $table->string('question');
+            $table->text('answer');
+            $table->timestamps();
         });
     }
+
 
 
     /**
@@ -21,8 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('articles', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('f_a_q_s');
     }
 };

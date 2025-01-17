@@ -44,10 +44,8 @@
                                 class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profiel bewerken</a>
                             <a href="{{ route('settings') }}"
                                 class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Instellingen</a>
-                            <a href="{{ route('logout') }}"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                Uitloggen
-                            </a>
+                                <a href="{{ route('logout') }}"
+                                class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Uitloggen</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
@@ -152,7 +150,7 @@
                     </div>
 
                     <!-- Nieuwsartikelen Beheren -->
-                    <div class="bg-white shadow-lg rounded-lg p-6">
+                    <div class="bg-white shadow-lg rounded-lg p-6 col-span-2">
                         <h2 class="text-xl font-bold text-gray-800 mb-4">Nieuwsartikelen Beheren</h2>
                         <p class="text-gray-600 mb-4">Bekijk, bewerk en verwijder nieuwsartikelen.</p>
 
@@ -163,7 +161,7 @@
                                     <div>
                                         <p class="font-semibold">{{ $article->title }}</p>
                                         <p class="text-sm text-gray-400">{{ $article->published_at->format('d M Y') }}</p>
-                                        </div>
+                                    </div>
 
                                     <!-- Bewerken en Verwijderen Knoppen -->
                                     <div class="space-x-2">
@@ -189,6 +187,13 @@
                         </div>
                     </div>
 
+                    <!-- FAQ Beheren -->
+                    <div class="bg-white shadow-lg rounded-lg p-6 col-span-3">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">Beheer FAQ's</h2>
+                        <p class="text-gray-600 mb-4">Bekijk, bewerk en verwijder bestaande FAQ's.</p>
+                        <a href="{{ route('faqs.admin.index') }}"
+                            class="text-yellow-600 hover:text-yellow-700 font-medium">Beheer FAQ's &rarr;</a>
+                    </div>
 
                     <!-- Nieuw Bier Toevoegen -->
                     <div class="bg-white shadow-lg rounded-lg p-6">

@@ -16,9 +16,16 @@
             </nav>
         </header>
 
+        <div class="mb-4 text-center">
+            <a href="{{ route('admin.dashboard') }}"
+                class="text-yellow-500 hover:text-yellow-600 font-semibold text-lg">
+                ← Terug naar Admin Dashboard
+            </a>
+        </div>
+
         <!-- News Article Form -->
         <main class="flex-grow flex items-center justify-center">
-            <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+            <div class="bg-white p-8 rounded-lg shadow-lg max-w-4xl w-full">
                 <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Nieuwsartikel Toevoegen</h2>
 
                 <form method="POST" action="{{ route('articles.store') }}" enctype="multipart/form-data">

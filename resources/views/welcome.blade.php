@@ -20,6 +20,7 @@
                     <a href="#" class="text-white hover:text-yellow-100 transition-colors">Home</a>
                     <a href="#" class="text-white hover:text-yellow-100 transition-colors">About</a>
                     <a href="#" class="text-white hover:text-yellow-100 transition-colors">Contact</a>
+                    <a href="{{ route('faqs.index') }}" class="text-white hover:text-yellow-100 transition-colors">FAQ</a>
 
                     <!-- Login and Register Buttons -->
                     <a href="{{ route('login') }}"
