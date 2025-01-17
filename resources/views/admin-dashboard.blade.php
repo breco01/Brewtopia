@@ -67,56 +67,76 @@
                 <!-- Dashboard Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Gebruikers Overzicht -->
-                    <div class="bg-white shadow-lg rounded-lg p-6">
+                    <div class="bg-white shadow-lg rounded-lg p-6 flex flex-col justify-between h-full">
                         <h2 class="text-xl font-bold text-gray-800 mb-4">Overzicht van Gebruikers</h2>
                         <p class="text-gray-600 mb-4">Bekijk het aantal geregistreerde gebruikers en hun status.</p>
-                        <a href="{{ route('users.index') }}"
-                            class="text-yellow-600 hover:text-yellow-700 font-medium">Bekijk Gebruikers &rarr;</a>
+                        
+                        <div>
+                            <p class="text-lg text-gray-800 font-semibold">Aantal Gebruikers:</p>
+                            <p class="text-2xl font-bold text-yellow-600">{{ \App\Models\User::count() }}</p>
+                        </div>
+
+                        <div class="mt-6">
+                            <p class="text-lg text-gray-800 font-semibold mb-2">Recentste Gebruikers:</p>
+                            <ul class="space-y-2">
+                                @foreach (\App\Models\User::latest()->take(6)->get() as $user)
+                                    <li class="flex items-center justify-between text-gray-700">
+                                        <span>{{ $user->name }}</span>
+                                        <span class="text-sm text-gray-400">{{ $user->created_at->format('d M Y') }}</span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+
+                        <div class="mt-6 text-center">
+                            <a href="{{ route('users.index') }}"
+                                class="text-yellow-600 hover:text-yellow-700 font-medium">Bekijk Meer &rarr;</a>
+                        </div>
                     </div>
 
                     <!-- Nieuwe Gebruiker Toevoegen -->
-                    <div class="bg-white shadow-lg rounded-lg p-6">
+                    <div class="bg-white shadow-lg rounded-lg p-6 col-span-2">
                         <h2 class="text-xl font-bold text-gray-800 mb-4">Nieuwe Gebruiker Toevoegen</h2>
                         <p class="text-gray-600 mb-4">Voeg een nieuwe gebruiker toe aan de website.</p>
-
-                        <!-- Formulier om een nieuwe gebruiker aan te maken -->
                         <form method="POST" action="{{ route('users.store') }}">
                             @csrf
-                            <div class="mb-6">
+                            <div class="mb-4">
                                 <label for="name" class="block text-gray-800 font-medium mb-2">Naam</label>
                                 <input type="text" name="name" id="name" required
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
                             </div>
 
-                            <div class="mb-6">
+                            <div class="mb-4">
                                 <label for="email" class="block text-gray-800 font-medium mb-2">E-mail</label>
                                 <input type="email" name="email" id="email" required
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
                             </div>
 
-                            <div class="mb-6">
+                            <div class="mb-4">
                                 <label for="password" class="block text-gray-800 font-medium mb-2">Wachtwoord</label>
                                 <input type="password" name="password" id="password" required
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
                             </div>
 
-                            <div class="mb-6">
+                            <div class="mb-4">
                                 <label for="password_confirmation" class="block text-gray-800 font-medium mb-2">Bevestig
                                     Wachtwoord</label>
                                 <input type="password" name="password_confirmation" id="password_confirmation" required
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
                             </div>
 
-                            <div class="mb-6">
+                            <div class="mb-4">
                                 <label for="is_admin" class="block text-gray-800 font-medium mb-2">Admin Status</label>
                                 <select name="is_admin" id="is_admin"
-                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
                                     <option value="1">Admin</option>
                                     <option value="0">Geen Admin</option>
                                 </select>
                             </div>
 
-                            <button type="submit">Maak Gebruiker Aan</button>
+                            <button type="submit"
+                                class="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded-lg transition-colors">Maak
+                                Gebruiker Aan</button>
                         </form>
                     </div>
 
