@@ -48,9 +48,7 @@
                             <a href="{{ route('settings') }}"
                                 class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Instellingen</a>
                             <a href="{{ route('logout') }}"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                Uitloggen
-                            </a>
+                                class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Uitloggen</a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf

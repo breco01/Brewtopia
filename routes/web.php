@@ -6,7 +6,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 
 // Logout route
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 // Routes voor verschillende pagina's
 Route::get('/reviews', function () {
@@ -42,6 +42,8 @@ Route::put('/users/{user}/update-admin-status', [UserController::class, 'updateA
 
 // Verwijder een gebruiker
 Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
 
 // Artikelen
 Route::get('/articles/create', function () {

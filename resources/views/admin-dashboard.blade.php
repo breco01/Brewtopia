@@ -61,7 +61,8 @@
         <main class="flex-grow">
             <div class="max-w-7xl mx-auto px-6 py-12">
                 <h1 class="text-4xl font-bold text-gray-800 mb-8">Welkom op het Admin Dashboard,
-                    {{ Auth::user()->name }}!</h1>
+                    {{ Auth::user()->name }}!
+                </h1>
 
                 <!-- Dashboard Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -72,6 +73,54 @@
                         <a href="{{ route('users.index') }}"
                             class="text-yellow-600 hover:text-yellow-700 font-medium">Bekijk Gebruikers &rarr;</a>
                     </div>
+
+                    <!-- Nieuwe Gebruiker Toevoegen -->
+                    <div class="bg-white shadow-lg rounded-lg p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">Nieuwe Gebruiker Toevoegen</h2>
+                        <p class="text-gray-600 mb-4">Voeg een nieuwe gebruiker toe aan de website.</p>
+
+                        <!-- Formulier om een nieuwe gebruiker aan te maken -->
+                        <form method="POST" action="{{ route('users.store') }}">
+                            @csrf
+                            <div class="mb-6">
+                                <label for="name" class="block text-gray-800 font-medium mb-2">Naam</label>
+                                <input type="text" name="name" id="name" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
+                            </div>
+
+                            <div class="mb-6">
+                                <label for="email" class="block text-gray-800 font-medium mb-2">E-mail</label>
+                                <input type="email" name="email" id="email" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
+                            </div>
+
+                            <div class="mb-6">
+                                <label for="password" class="block text-gray-800 font-medium mb-2">Wachtwoord</label>
+                                <input type="password" name="password" id="password" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
+                            </div>
+
+                            <div class="mb-6">
+                                <label for="password_confirmation" class="block text-gray-800 font-medium mb-2">Bevestig
+                                    Wachtwoord</label>
+                                <input type="password" name="password_confirmation" id="password_confirmation" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
+                            </div>
+
+                            <div class="mb-6">
+                                <label for="is_admin" class="block text-gray-800 font-medium mb-2">Admin Status</label>
+                                <select name="is_admin" id="is_admin"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500">
+                                    <option value="1">Admin</option>
+                                    <option value="0">Geen Admin</option>
+                                </select>
+                            </div>
+
+                            <button type="submit">Maak Gebruiker Aan</button>
+                        </form>
+                    </div>
+
+
 
                     <!-- Nieuwsartikel Toevoegen -->
                     <div class="bg-white shadow-lg rounded-lg p-6">
@@ -87,7 +136,8 @@
                         <h2 class="text-xl font-bold text-gray-800 mb-4">Nieuw Bier Toevoegen</h2>
                         <p class="text-gray-600 mb-4">Voeg een nieuw bier toe aan de database voor andere gebruikers om
                             te recenseren.</p>
-                        <a href="{{ route('beers.create') }}" class="text-yellow-600 hover:text-yellow-700 font-medium">Voeg Bier toe &rarr;</a>
+                        <a href="{{ route('beers.create') }}"
+                            class="text-yellow-600 hover:text-yellow-700 font-medium">Voeg Bier toe &rarr;</a>
                     </div>
 
                     <!-- Beheer van Bieren -->
@@ -95,14 +145,16 @@
                         <h2 class="text-xl font-bold text-gray-800 mb-4">Beheer van Bieren</h2>
                         <p class="text-gray-600 mb-4">Bekijk en beheer alle bieren in de database, inclusief het
                             bewerken en verwijderen van bestaande bieren.</p>
-                        <a href="{{ route('beers.list') }}" class="text-yellow-600 hover:text-yellow-700 font-medium">Bekijk Bieren &rarr;</a>
+                        <a href="{{ route('beers.list') }}"
+                            class="text-yellow-600 hover:text-yellow-700 font-medium">Bekijk Bieren &rarr;</a>
                     </div>
 
                     <!-- Instellingen -->
                     <div class="bg-white shadow-lg rounded-lg p-6">
                         <h2 class="text-xl font-bold text-gray-800 mb-4">Instellingen</h2>
                         <p class="text-gray-600 mb-4">Beheer de algemene instellingen van de website.</p>
-                        <a href="{{ route('settings') }}" class="text-yellow-600 hover:text-yellow-700 font-medium">Bewerk Instellingen &rarr;</a>
+                        <a href="{{ route('settings') }}"
+                            class="text-yellow-600 hover:text-yellow-700 font-medium">Bewerk Instellingen &rarr;</a>
                     </div>
                 </div>
             </div>

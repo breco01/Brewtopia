@@ -54,4 +54,23 @@ class UserController extends Controller
 
         return redirect()->route('users.index');
     }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',
+            'is_admin' => 'required|boolean',
+        ]);
+
+        $user = new User();
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
+        $user->password = bcrypt($validated['password']);
+        $user->is_admin = $validated['is_admin'];
+        $user->save();
+
+        return redirect()->route('users.index')->with('status', 'Nieuwe gebruiker succesvol aangemaakt!');
+    }
 }
