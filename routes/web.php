@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Article;
 
 // Logout route
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
@@ -33,28 +35,29 @@ Route::get('/settings', function () {
     return view('settings');
 })->name('settings');
 
-
 // Admin routes
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::middleware(['auth', 'verified'])->group(function () {
+    // Users management
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::put('/users/{user}/update-admin-status', [UserController::class, 'updateAdminStatus'])->name('users.updateAdminStatus');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
 
-// Wijzig admin-status van een gebruiker
-Route::put('/users/{user}/update-admin-status', [UserController::class, 'updateAdminStatus'])->name('users.updateAdminStatus');
-
-// Verwijder een gebruiker
-Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-
-Route::post('/users', [UserController::class, 'store'])->name('users.store');
-
-// Artikelen
-Route::get('/articles/create', function () {
-    return view('articles.create');
-})->middleware(['auth', 'verified'])->name('articles.create');
-
-// Routes voor dashboards
-Route::get('/', function () {
-    return view('welcome');
+    // Routes voor nieuwsartikelen
+    Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
+    Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
 });
 
+// Artikelen overzicht voor iedereen
+Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
+
+// Home route en artikelen voor de welkomstpagina
+Route::get('/', function () {
+    $articles = Article::all();
+    return view('welcome', compact('articles'));
+});
+
+// Routes voor dashboards
 Route::get('/dashboard', function () {
     return view('user-dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -70,4 +73,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

@@ -8,16 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminMiddleware
 {
-    /**
-     * Handle an incoming request.
-     */
     public function handle(Request $request, Closure $next)
     {
         if (Auth::check() && Auth::user()->is_admin) {
             return $next($request);
         }
 
-        // Als de gebruiker geen admin is, stuur dan naar het gewone dashboard
-        return redirect()->route('dashboard');
+        return redirect('/')->with('error', 'Je hebt geen toegang tot deze pagina.');
     }
 }

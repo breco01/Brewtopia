@@ -9,34 +9,39 @@
 <body class="bg-gray-50 font-sans text-gray-900">
 
     <div class="min-h-screen flex flex-col">
+        <!-- Navbar -->
         <header class="bg-yellow-500 shadow-lg">
             <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-                <a href="/" class="text-3xl font-semibold text-white hover:text-yellow-100 transition-colors">Brewtopia</a>
-                <div class="space-x-6 flex items-center">
-                    <a href="{{ route('admin.dashboard') }}" class="text-white hover:text-yellow-100 transition-colors">Admin Dashboard</a>
-                </div>
+                <a href="{{ route('admin.dashboard') }}" class="text-3xl font-semibold text-white hover:text-yellow-100 transition-colors">Brewtopia</a>
             </nav>
         </header>
 
-        <!-- Nieuwsartikel Formulier -->
-        <main class="flex-grow">
-            <div class="max-w-7xl mx-auto px-6 py-12">
-                <h1 class="text-4xl font-bold text-gray-800 mb-8">Voeg een nieuw Nieuwsartikel toe</h1>
+        <!-- News Article Form -->
+        <main class="flex-grow flex items-center justify-center">
+            <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Nieuwsartikel Toevoegen</h2>
 
-                <form method="POST" action="{{ route('articles.store') }}">
+                <form method="POST" action="{{ route('articles.store') }}" enctype="multipart/form-data">
                     @csrf
-                    <!-- Voeg hier je formulier voor het toevoegen van een nieuwsartikel toe -->
+
                     <div class="mb-6">
-                        <label for="title" class="block text-gray-700">Titel</label>
-                        <input type="text" id="title" name="title" class="mt-1 block w-full" required />
+                        <label for="title" class="block text-gray-800 font-medium mb-2">Titel</label>
+                        <input type="text" name="title" id="title" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500" />
                     </div>
 
                     <div class="mb-6">
-                        <label for="content" class="block text-gray-700">Inhoud</label>
-                        <textarea id="content" name="content" class="mt-1 block w-full" required></textarea>
+                        <label for="content" class="block text-gray-800 font-medium mb-2">Inhoud</label>
+                        <textarea name="content" id="content" rows="4" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"></textarea>
                     </div>
 
-                    <button type="submit" class="bg-yellow-500 text-white px-6 py-3 rounded-full hover:bg-yellow-600">Publiceer Artikel</button>
+                    <div class="mb-6">
+                        <label for="image" class="block text-gray-800 font-medium mb-2">Afbeelding (optioneel)</label>
+                        <input type="file" name="image" id="image" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500" />
+                    </div>
+
+                    <div>
+                        <button type="submit" class="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-2 px-4 rounded-lg transition-colors">Artikel Toevoegen</button>
+                    </div>
                 </form>
             </div>
         </main>
