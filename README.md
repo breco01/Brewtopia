@@ -1,3 +1,112 @@
+# Brewtopia
+
+**Brewtopia** is een platform voor bierliefhebbers om hun favoriete bieren te ontdekken, beoordelen en delen met andere gebruikers. Het biedt gebruikers de mogelijkheid om bieren te beoordelen, nieuwsartikelen te lezen, en veel meer.
+
+---
+
+## Functies
+
+- **Bieren ontdekken**: Verken een geselecteerde lijst van de beste ambachtelijke bieren van over de hele wereld. (niet volledig)
+- **Bieren beoordelen en recenseren**: Deel je mening over de bieren die je hebt geprobeerd en lees de recensies van andere gebruikers. (niet volledig)
+- **Verbinden met vrienden**: Volg je vrienden, deel je favoriete bieren, en beleef proefervaringen samen. (niet volledig)
+- **Nieuwsartikelen lezen**: Lees en voeg nieuwsartikelen toe over de bierwereld.
+- **FAQ**: Krijg antwoorden op veelgestelde vragen over de website en het platform.
+
+---
+
+## Installatie
+
+### Vereisten
+- PHP 8.0 of hoger
+- Composer
+- Laravel 8.x
+- MySQL (of een andere ondersteunde database)
+
+### Stappen voor installatie
+
+1. **Clone de repository:**
+    ```bash
+    git clone https://github.com/jouwgebruikersnaam/brewtopia.git
+    cd brewtopia
+    ```
+
+2. **Installeer de afhankelijkheden:**
+    ```bash
+    composer install
+    ```
+
+3. **Stel de omgeving in:**
+    Maak een kopie van het `.env.example` bestand naar `.env` en configureer je database-instellingen.
+    ```bash
+    cp .env.example .env
+    ```
+
+4. **Genereer de applicatiesleutel:**
+    ```bash
+    php artisan key:generate
+    ```
+
+5. **Voer migraties uit:**
+    ```bash
+    php artisan migrate
+    ```
+
+6. **Start de server:**
+    ```bash
+    php artisan serve
+    ```
+
+---
+
+## Functionaliteit
+
+### Beheer van Gebruikers
+Als admin kun je gebruikers beheren:
+- Bekijk, voeg toe, bewerk en verwijder gebruikers.
+- Beheer hun admin-status.
+
+### Beheer van Nieuwsartikelen
+Admins kunnen nieuwsartikelen beheren:
+- Voeg nieuwsartikelen toe.
+- Bewerken en verwijder artikelen.
+- Weergave van de meest recente artikelen op de homepagina.
+
+### Beheer van FAQ's
+Admins kunnen FAQ's beheren:
+- Voeg nieuwe FAQ's toe.
+- Bewerken en verwijderen van bestaande FAQ's.
+
+### Profielbeheer
+Gebruikers kunnen hun profiel bewerken:
+- Werk je naam, e-mail, en wachtwoord bij.
+- Upload een profielfoto.
+
+---
+
+## Gebruikte Technologieën
+
+- **Laravel 8.x**: PHP-framework voor webontwikkeling.
+- **MySQL**: Relationele database voor gegevensopslag.
+- **Blade**: Templating engine voor Laravel.
+- **Tailwind CSS**: Utility-first CSS framework.
+- **Vue.js** (optioneel): Voor interactieve UI-componenten.
+
+---
+
+## Contributie
+
+1. Fork dit project.
+2. Maak een nieuwe branch voor je wijzigingen.
+3. Commit je wijzigingen.
+4. Open een Pull Request.
+
+---
+
+## Licentie
+
+Dit project is gelicenseerd onder de MIT License - zie het [LICENSE](LICENSE) bestand voor meer informatie.
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
